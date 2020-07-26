@@ -1,2 +1,2 @@
 flask==1.1.2
-git+https://github.com/filias/gpwebpay.git
+gpwebpay==0.1.0
