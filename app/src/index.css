@@ -1,0 +1,40 @@
+/* basic */
+/* #032522 ,  #144a4a, #235247, #3c817b, #91b9b3, #e4e6e6 */
+body {
+  font-family: "Ubuntu", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+.wrapper {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.container h4 {
+  margin: 40px 0 40px 0;
+  text-transform: uppercase;
+  color: #144a4a;
+  font-size: 18px;
+}
