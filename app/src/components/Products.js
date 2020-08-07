@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Products.css";
 import ProductItem from "./ProductItem";
+import { Context } from "../Context";
 
 function Products() {
-  const [products, setProducts] = useState([]);
-  async function fetchProducts() {
-    const response = await fetch("./products.json");
-    const json = await response.json();
-    setProducts(json);
-  }
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  const { products } = useContext(Context);
   const productsElements = products.map((product) => (
     <ProductItem key={product.id} product={product} />
   ));

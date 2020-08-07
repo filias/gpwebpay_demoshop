@@ -1,19 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Header.css";
 import logo from "../img/avocado-logo.png";
+import { Context } from "../Context";
 
 function Header() {
   const [totalAmount, setTotalAmount] = useState({
     amount: "10",
   });
-  const closeShoppingList = () => {};
+  const [isShoppingListOpen, setIsShoppingListOpen] = useState(false);
+  const { cartProducts } = useContext(Context);
+  const cartElements = cartProducts.map((product) => (
+    <div>
+      {product.title} - {product.price}
+    </div>
+  ));
+  const toggleShoppingList = () => {
+    isShoppingListOpen
+      ? setIsShoppingListOpen(false)
+      : setIsShoppingListOpen(true);
+  };
   const proceedPayment = () => {
     fetch(`${window.origin}/pay`, {
       method: "POST",
       credentials: "include",
       body: JSON.stringify(totalAmount),
       cache: "no-cache",
-      // mode: "no-cors",
       headers: new Headers({
         "content-type": "application/json",
       }),
@@ -40,7 +51,7 @@ function Header() {
         DemoShop
       </a>
       <div className="header__menu">
-        <button className="shopping-cart">
+        <button className="shopping-cart" onClick={() => toggleShoppingList()}>
           <i className="fa fa-shopping-cart" aria-hidden="true"></i>
         </button>
         <div>
@@ -50,17 +61,24 @@ function Header() {
           Checkout
         </button>
       </div>
-      <div id="shopping-list-sidebar" className="sidebar shopping-list">
+      <div
+        id="shopping-list-sidebar"
+        className={
+          isShoppingListOpen
+            ? "sidebar shopping-list"
+            : "sidebar shopping-list hide"
+        }
+      >
         <a
           className="closebtn"
           // todo: function
-          onClick={() => closeShoppingList()}
+          onClick={() => toggleShoppingList()}
         >
           ×
         </a>
         <div className="shopping-list__wrapper">
           <div className="shoppint-list__title">Shopping Cart</div>
-          <div className="shopping-list__item">Here is the product</div>
+          <div className="shopping-list__item">{cartElements}</div>
           <div className="shopping-list__total">
             Total: &euro;
             <span id="total"> here is the total</span>
