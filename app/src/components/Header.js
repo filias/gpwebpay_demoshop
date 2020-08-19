@@ -4,13 +4,20 @@ import logo from "../img/avocado-logo.png";
 import { Context } from "../Context";
 
 function Header() {
-  const [totalAmount, setTotalAmount] = useState({
-    amount: "10",
-  });
+  const { cartProducts, totalAmount } = useContext(Context);
+
+  const currencyOptions = {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  };
+
+  function getTotal() {
+    return totalAmount.toLocaleString(undefined, currencyOptions);
+  }
+
   const [isShoppingListOpen, setIsShoppingListOpen] = useState(false);
-  const { cartProducts } = useContext(Context);
-  const cartElements = cartProducts.map((product) => (
-    <div>
+  const cartElements = cartProducts.map((product, index) => (
+    <div key={index}>
       {product.title} - {product.price}
     </div>
   ));
@@ -55,7 +62,7 @@ function Header() {
           <i className="fa fa-shopping-cart" aria-hidden="true"></i>
         </button>
         <div>
-          Total: &euro;<span id="total">0</span>
+          Total: &euro;<span id="total">{getTotal(totalAmount)}</span>
         </div>
         <button href="" className="btn" onClick={() => proceedPayment()}>
           Checkout
@@ -81,7 +88,7 @@ function Header() {
           <div className="shopping-list__item">{cartElements}</div>
           <div className="shopping-list__total">
             Total: &euro;
-            <span id="total"> here is the total</span>
+            <span id="total"> {getTotal(totalAmount)}</span>
           </div>
           <button className="btn btn-checkout" onClick={() => proceedPayment()}>
             Checkout
