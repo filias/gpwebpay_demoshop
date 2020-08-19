@@ -4,7 +4,9 @@ import logo from "../img/avocado-logo.png";
 import { Context } from "../Context";
 
 function Header() {
-  const { cartProducts, totalAmount } = useContext(Context);
+  const { cartProducts, totalAmount, emptyCart, removeFromCart } = useContext(
+    Context
+  );
 
   const currencyOptions = {
     minimumFractionDigits: 2,
@@ -19,6 +21,9 @@ function Header() {
   const cartElements = cartProducts.map((product, index) => (
     <div key={index}>
       {product.title} - {product.price}
+      <button onClick={() => removeFromCart(product)} className="products__btn">
+        <i className="fa fa-trash" aria-hidden="true"></i>
+      </button>
     </div>
   ));
   const toggleShoppingList = () => {
@@ -93,7 +98,9 @@ function Header() {
           <button className="btn btn-checkout" onClick={() => proceedPayment()}>
             Checkout
           </button>
-          <button className="btn btn-remove">Remove items</button>
+          <button className="btn btn-remove" onClick={() => emptyCart()}>
+            Remove items
+          </button>
         </div>
       </div>
     </header>
