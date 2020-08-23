@@ -18,6 +18,7 @@ Run frontend of the application
 
 ```bash
 cd /app
+npm i
 npm start
 ```
 

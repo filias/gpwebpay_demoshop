@@ -54,7 +54,6 @@
 }
 .products .fa-heart {
   font-size: 20px;
-  z-index: 10;
   color: red;
   position: absolute;
   top: 10px;
