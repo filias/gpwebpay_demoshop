@@ -1,19 +1,27 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import "./Header.css";
 import logo from "../img/avocado-logo.png";
 import { Context } from "../Context";
 
 function Header() {
-  const { cartProducts, totalAmount, emptyCart, removeFromCart } = useContext(
-    Context
-  );
-
+  const { cartProducts, emptyCart, removeFromCart } = useContext(Context);
   const currencyOptions = {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   };
 
-  function getTotal() {
+  function getTotal(cartProducts) {
+    const totalAmount = cartProducts.reduce(
+      (acc, item) => acc + parseFloat(item.price),
+      0
+    );
+    return totalAmount;
+  }
+  function displayTotal(cartProducts) {
+    const totalAmount = cartProducts.reduce(
+      (acc, item) => acc + parseFloat(item.price),
+      0
+    );
     return totalAmount.toLocaleString(undefined, currencyOptions);
   }
 
@@ -35,7 +43,7 @@ function Header() {
     fetch(`${window.origin}/pay`, {
       method: "POST",
       credentials: "include",
-      body: JSON.stringify(totalAmount),
+      body: JSON.stringify(getTotal(cartProducts)),
       cache: "no-cache",
       headers: new Headers({
         "content-type": "application/json",
@@ -67,7 +75,7 @@ function Header() {
           <i className="fa fa-shopping-cart" aria-hidden="true"></i>
         </button>
         <div>
-          Total: &euro;<span id="total">{getTotal(totalAmount)}</span>
+          Total: &euro;<span id="total">{displayTotal(cartProducts)}</span>
         </div>
         <button href="" className="btn" onClick={() => proceedPayment()}>
           Checkout
@@ -81,19 +89,19 @@ function Header() {
             : "sidebar shopping-list hide"
         }
       >
-        <a
+        <button
           className="closebtn"
           // todo: function
           onClick={() => toggleShoppingList()}
         >
           ×
-        </a>
+        </button>
         <div className="shopping-list__wrapper">
           <div className="shoppint-list__title">Shopping Cart</div>
           <div className="shopping-list__item">{cartElements}</div>
           <div className="shopping-list__total">
             Total: &euro;
-            <span id="total"> {getTotal(totalAmount)}</span>
+            <span id="total"> {displayTotal(cartProducts)}</span>
           </div>
           <button className="btn btn-checkout" onClick={() => proceedPayment()}>
             Checkout
