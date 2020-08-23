@@ -3,36 +3,42 @@
     "id": "1",
     "title": "Avocado 1ps",
     "price": "2.99",
-    "image": "avocado.png"
+    "image": "avocado.png",
+    "isFavorite": "false"
   },
   {
     "id": "2",
     "title": "Tofu 500g",
     "price": "1.99",
-    "image": "tofu.png"
+    "image": "tofu.png",
+    "isFavorite": "false"
   },
   {
     "id": "3",
     "title": "Hummus 200g",
     "price": "2.99",
-    "image": "hummus.png"
+    "image": "hummus.png",
+    "isFavorite": "false"
   },
   {
     "id": "4",
     "title": "Mango 1ps",
     "price": "1.6",
-    "image": "mango.png"
+    "image": "mango.png",
+    "isFavorite": "false"
   },
   {
     "id": "5",
     "title": "Almond 100g",
     "price": "3.0",
-    "image": "almond.png"
+    "image": "almond.png",
+    "isFavorite": "false"
   },
   {
     "id": "6",
     "title": "Oat Milk 1ps",
     "price": "0.9",
-    "image": "oat-milk.png"
+    "image": "oat-milk.png",
+    "isFavorite": "false"
   }
 ]

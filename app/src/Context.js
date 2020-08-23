@@ -40,6 +40,19 @@ function ContextProvider(props) {
   function emptyCart() {
     setCartProducts({ type: "removeAll" });
   }
+
+  function toggleFavorite(id) {
+    const updatedProducts = products.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          isFavorite: !item.isFavorite,
+        };
+      }
+      return item;
+    });
+    setProducts(updatedProducts);
+  }
   return (
     <Context.Provider
       value={{
@@ -48,6 +61,7 @@ function ContextProvider(props) {
         addToCart,
         emptyCart,
         removeFromCart,
+        toggleFavorite,
       }}
     >
       {props.children}

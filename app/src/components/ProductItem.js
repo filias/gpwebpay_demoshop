@@ -1,11 +1,36 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../Context";
 
 function ProductItem({ product }) {
-  const { addToCart, removeFromCart } = useContext(Context);
+  const { addToCart, removeFromCart, toggleFavorite } = useContext(Context);
+  const [hovered, setHovered] = useState(false);
+  function favoriteIcon() {
+    if (product.isFavorite) {
+      return (
+        <i
+          onClick={() => toggleFavorite(product.id)}
+          className="fa fa-heart"
+          aria-hidden="true"
+        ></i>
+      );
+    } else if (hovered) {
+      return (
+        <i
+          onClick={() => toggleFavorite(product.id)}
+          className="fa fa-heart"
+          aria-hidden="true"
+        ></i>
+      );
+    }
+  }
   return (
-    <li key={product.id}>
+    <li
+      key={product.id}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       <img alt={product.title} src={product.image} />
+      {favoriteIcon()}
       <div>{product.title}</div>
       <div className="products__info">
         <span> &euro; {product.price} </span>
