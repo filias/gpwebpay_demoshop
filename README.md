@@ -1,9 +1,8 @@
 # gpwebpay_demoshop
 
-Demo webshop that demonstrates the usage of the gpwebpay package.
-It is a flask app.
+Demoshop demonstrates the usage of [gpwebpay package](https://github.com/vintesk/gpwebpay) with Flask and React.js. Communication between Javascript and Flask happens with Fetch API.
 
-You will need to have the environmental variables needed by gpwebpay for it to work.
+![usage](usage.png)
 
 ## To run it locally:
 
@@ -17,7 +16,7 @@ python demoshop/app.py
 
 Run frontend of the application
 
-```s
+```bash
 cd /app
 npm start
 ```

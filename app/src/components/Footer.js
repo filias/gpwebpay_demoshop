@@ -6,7 +6,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer-right">
         <a href={"https://github.com/vintesk/gpwebpay"}>
-          <i className="fas fa-code-branch"></i>
+          Check gpwebpay package <i className="fas fa-code-branch"></i>
         </a>
       </div>
       <div className="footer-left">
