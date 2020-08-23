@@ -20,8 +20,8 @@ function Header() {
   const [isShoppingListOpen, setIsShoppingListOpen] = useState(false);
   const cartElements = cartProducts.map((product, index) => (
     <div key={index}>
-      {product.title} - {product.price}
-      <button onClick={() => removeFromCart(product)} className="products__btn">
+      {product.title} - &euro; {product.price}
+      <button onClick={() => removeFromCart(product)} className="remove-btn">
         <i className="fa fa-trash" aria-hidden="true"></i>
       </button>
     </div>

@@ -4,8 +4,8 @@ const Context = React.createContext();
 
 function ContextProvider(props) {
   const [products, setProducts] = useState([]);
-  const [cartProducts, setCartProducts] = useState([]);
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [cartProducts, setCartProducts] = useReducer(cartReducer, []);
+  const [totalAmount, setTotalAmount] = useReducer(totalReducer, 0);
 
   async function fetchProducts() {
     const response = await fetch("./products.json");
@@ -16,27 +16,44 @@ function ContextProvider(props) {
     fetchProducts();
   }, []);
 
-  function cartReducer(state, product) {
-    return [...state, product];
+  function cartReducer(state, action) {
+    switch (action.type) {
+      case "add":
+        return [...state, action.newProduct];
+      case "remove":
+        const updatedCart = [...state];
+        updatedCart.splice(updatedCart.indexOf(action.newProduct), 1);
+        return updatedCart;
+      case "removeAll":
+        return [];
+      default:
+        return state;
+    }
+  }
+
+  function totalReducer(state, action) {
+    if (action.type === "add") {
+      return state + parseFloat(action.price);
+    } else if (action.type === "remove") {
+      return state - parseFloat(action.price);
+    }
+    return 0;
   }
 
   function addToCart(newProduct) {
-    setCartProducts((prevProducts) => [...prevProducts, newProduct]);
-    setTotalAmount(
-      (prevProducts) => prevProducts + parseFloat(newProduct.price)
-    );
+    const { price } = newProduct;
+    setCartProducts({ newProduct, type: "add" });
+    setTotalAmount({ price, type: "add" });
   }
-  function removeFromCart(product) {
-    console.log(product);
-    setCartProducts((prevItems) =>
-      prevItems.filter((item) => item.id !== product.id)
-    );
-    // setTotalAmount((prevProducts) => prevProducts - parseFloat(product.price));
+  function removeFromCart(newProduct) {
+    const { price } = newProduct;
+    setCartProducts({ newProduct, type: "remove" });
+    setTotalAmount({ price, type: "remove" });
   }
 
   function emptyCart() {
-    setCartProducts([]);
-    setTotalAmount(0);
+    setCartProducts({ type: "removeAll" });
+    setTotalAmount({ type: "removeAll" });
   }
   return (
     <Context.Provider

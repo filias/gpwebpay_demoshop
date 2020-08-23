@@ -37,7 +37,9 @@
   opacity: 0.7;
 }
 
-.shopping-list__item {
+.shopping-list__item div {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 .shopping-list__total {
@@ -74,6 +76,13 @@
   color: red;
   transition: 0.5s;
 }
+.shopping-list .remove-btn {
+  border: none;
+  background: none;
+}
+.shopping-list .fa-trash {
+  color: indianred;
+}
 .hide {
   display: none;
 }
@@ -109,7 +118,7 @@
 
 .sidebar {
   height: 100%;
-  /* width: 0; */
+  width: 25%;
   position: fixed;
   z-index: 1;
   top: 0;

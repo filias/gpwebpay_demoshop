@@ -20,19 +20,19 @@
   {
     "id": "4",
     "title": "Mango 1ps",
-    "price": "1.6",
+    "price": "1.60",
     "image": "products/mango.png"
   },
   {
     "id": "5",
     "title": "Almond 100g",
-    "price": "3.0",
+    "price": "3.00",
     "image": "products/almond.png"
   },
   {
     "id": "6",
     "title": "Oat Milk 1ps",
-    "price": "0.9",
+    "price": "0.90",
     "image": "products/oat-milk.png"
   }
 ]
