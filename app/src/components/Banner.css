@@ -1,0 +1,8 @@
+.banner-section {
+  background-image: url("../img/blueberries.jpg");
+  height: 25%;
+  display: flex;
+  align-items: center;
+  height: 200px;
+  justify-content: center;
+}

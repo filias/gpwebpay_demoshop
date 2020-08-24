@@ -1,0 +1,35 @@
+.footer {
+  background-color: #144a4a;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  font: normal 16px sans-serif;
+  padding: 45px 50px;
+  margin-top: 75px;
+}
+
+.footer .footer-left p {
+  color: #8f9296;
+  font-size: 14px;
+}
+
+.footer .footer-right {
+  float: right;
+}
+
+.footer .footer-right a {
+  display: inline-block;
+  border-radius: 2px;
+  color: #8f9296;
+  font-size: 14px;
+  text-align: center;
+  line-height: 35px;
+  margin-left: 3px;
+  transition: all 0.25s;
+}
+
+.footer .footer-right a:hover {
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+}

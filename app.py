@@ -33,7 +33,7 @@ def request_payment():
     order_number = "".join(random.choices(string.digits, k=6))
     amount = 0
     if request.method == "POST":
-        amount = int(float(request.json.get("amount")) * 100)
+        amount = int(float(request.json * 100))
 
     gw = gpwebpay.GpwebpayClient()
     key_bytes = base64.b64decode(configuration.GPWEBPAY_MERCHANT_PRIVATE_KEY)
