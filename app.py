@@ -12,11 +12,20 @@ from flask import (
     json,
 )
 
-from gpwebpay import gpwebpay
-from gpwebpay.config import configuration
+from gpwebpay import GpwebpayClient, InvalidSignatureError, InvalidCallbackError
 
 
 app = Flask(__name__)
+
+client = GpwebpayClient(
+    merchant_id=os.environ.get("GPWEBPAY_MERCHANT_ID", ""),
+    private_key=base64.b64decode(os.environ.get("GPWEBPAY_MERCHANT_PRIVATE_KEY", "")),
+    private_key_password=os.environ.get("GPWEBPAY_MERCHANT_PRIVATE_KEY_PASSPHRASE"),
+    gateway_public_key=base64.b64decode(os.environ.get("GPWEBPAY_PUBLIC_KEY", "")),
+    callback_url=os.environ.get(
+        "GPWEBPAY_CALLBACK_URL", "https://localhost:5000/payment_callback"
+    ),
+)
 
 
 @app.route("/")
@@ -35,27 +44,20 @@ def request_payment():
     if request.method == "POST":
         amount = int(float(request.json * 100))
 
-    gw = gpwebpay.GpwebpayClient()
-    key_bytes = base64.b64decode(configuration.GPWEBPAY_MERCHANT_PRIVATE_KEY)
-    response = gw.request_payment(
-        order_number=order_number, amount=amount, key_bytes=key_bytes
-    )
+    response = client.request_payment(order_number=order_number, amount=amount)
 
-    return make_response(jsonify({"url": response.url}), response.status_code)
+    return make_response(jsonify({"url": str(response.url)}), response.status_code)
 
 
 @app.route("/payment_callback")
 def payment_callback():
-    # TODO: call verify_payment
-    gw = gpwebpay.GpwebpayClient()
-    key_bytes = base64.b64decode(configuration.GPWEBPAY_PUBLIC_KEY)
-
-    if gw.is_callback_valid(request.url, key_bytes):
-        # TODO: Make some template for this
-        return "Your order is paid!"
-    else:
-        # TODO: Return the correct error
-        return "Some problem in your payment"
+    try:
+        result = client.parse_callback(request.url)
+        if result.get("PRCODE") == "0":
+            return "Your order is paid!"
+        return f"Payment failed (PRCODE: {result.get('PRCODE')})"
+    except (InvalidSignatureError, InvalidCallbackError):
+        return "Payment verification failed", 400
 
 
 if __name__ == "__main__":

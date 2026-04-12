@@ -1,0 +1,13 @@
+[project]
+name = "gpwebpay-demoshop"
+version = "0.1.0"
+description = "Demo webshop using the GPWebPay payment gateway"
+requires-python = ">=3.10"
+dependencies = [
+    "flask>=3.0",
+    "gpwebpay>=1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
