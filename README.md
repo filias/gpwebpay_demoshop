@@ -1,37 +1,42 @@
 # gpwebpay_demoshop
 
-Demoshop demonstrates the usage of [gpwebpay package](https://github.com/vintesk/gpwebpay) with Flask and React.js.
-The communication between Javascript and Flask happens with Fetch API.
-You need to have Python3 and npm installed.
+Demo webshop showing how to integrate [gpwebpay](https://github.com/filias/gpwebpay) with Flask and React.js.
 
 ![usage](usage.png)
 
-## To run it locally:
+## Setup
 
-To run the backend of the application first create, activate and install requirements on a virtualenv:
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+You need Python 3.10+, [uv](https://docs.astral.sh/uv/), and npm installed.
+
+### Environment variables
+
+Set the variables required by the gpwebpay package. See the [gpwebpay docs](https://github.com/filias/gpwebpay) for details.
+
+```
+GPWEBPAY_MERCHANT_ID=...
+GPWEBPAY_MERCHANT_PRIVATE_KEY=...          # base64-encoded PEM
+GPWEBPAY_PUBLIC_KEY=...                     # base64-encoded x509 certificate
+GPWEBPAY_MERCHANT_PRIVATE_KEY_PASSPHRASE=...  # optional
+GPWEBPAY_CALLBACK_URL=https://localhost:5000/payment_callback
 ```
 
-You need to have the environmental variables needed by the gpwebpay package in order for the payment to go through. 
-Check the [documentation](https://github.com/filias/gpwebpay) 
-
-Then run Flask:
+### Backend
 
 ```bash
-python app.py
+uv sync
+uv run python app.py
 ```
 
----
-
-To run the frontend of the application:
+### Frontend
 
 ```bash
-cd /app
+cd app
 npm i
 npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## License
+
+MIT
